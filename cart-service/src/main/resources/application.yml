@@ -1,0 +1,29 @@
+server:
+  port: 9990
+logging:
+  exception-conversion-word: "\t%replace(%replace(%xEx){'\n','@n@'}){'\t','    '}%nopex"
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${logging.pattern.level:%5p}) %clr(${PID: }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %replace(%m){'\n','@n@'}${logging.exception-conversion-word:%wEx}%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${logging.pattern.level:%5p} ${PID: } --- [%15.15t] %-40.40logger{39} : %replace(%m){'\n','@n@'}${logging.exception-conversion-word:%wEx}%n"
+  level:
+    org.springframework.data.r2dbc: DEBUG
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info,health,prometheus,beans
+#  metrics:
+#    export:
+#      prometheus:
+#        rsocket:
+#          host: localhost
+#    tags:
+#      application: ${spring.application.name}
+#      instance_id: ${management.metrics.tags.application}:0
+#      organization: example.com
+#      space: develop
+spring:
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/items
+    username: root
+    password: 
