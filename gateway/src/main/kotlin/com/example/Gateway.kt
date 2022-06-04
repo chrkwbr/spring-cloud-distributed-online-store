@@ -8,9 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.support.GenericApplicationContext
 import org.springframework.context.support.beans
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
 
-@EnableResourceServer
 @SpringBootApplication
 class Gateway
 
@@ -30,7 +28,7 @@ class BeansInitializer : ApplicationContextInitializer<GenericApplicationContext
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder()
-            .sources(Gateway::class.java)
-            .initializers(BeansInitializer())
-            .run(*args)
+        .sources(Gateway::class.java)
+        .initializers(BeansInitializer())
+        .run(*args)
 }

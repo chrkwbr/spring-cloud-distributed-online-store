@@ -10,26 +10,43 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>online-store-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
 
   <dependencies>
+    <!--  language  -->
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <artifactId>kotlin-stdlib</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-reflect</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-reactor</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.projectreactor.kotlin</groupId>
+      <artifactId>reactor-kotlin-extensions</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-kotlin</artifactId>
     </dependency>
 
+
+    <!-- spring boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -40,25 +57,38 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+    <!-- spring cloud -->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-config</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.cloud</groupId>-->
+<!--      <artifactId>spring-cloud-starter-netflix-zuul</artifactId>-->
+<!--    </dependency>-->
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-config</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+
+    <!--  test  -->
+    <dependency>
+      <groupId>io.kotest</groupId>
+      <artifactId>kotest-runner-junit5-jvm</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-oauth2</artifactId>
+      <groupId>io.kotest.extensions</groupId>
+      <artifactId>kotest-extensions-spring</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -66,179 +96,25 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-stream-test-support</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
     <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
     <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-
     <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <configuration>
-          <args>
-            <arg>-Xjsr305=strict</arg>
-          </args>
-          <compilerPlugins>
-            <plugin>spring</plugin>
-          </compilerPlugins>
-        </configuration>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-allopen</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
-
-<!--      <plugin>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--        <version>${spring-boot.version}</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <goals>-->
-<!--              <goal>repackage</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--        <configuration>-->
-<!--          <executable>true</executable>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
-
-<!--      <plugin>-->
-<!--        <artifactId>maven-resources-plugin</artifactId>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>copy Vue.js frontend content</id>-->
-<!--            <phase>generate-resources</phase>-->
-<!--            <goals>-->
-<!--              <goal>copy-resources</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <outputDirectory>src/main/resources/public</outputDirectory>-->
-<!--              <overwrite>true</overwrite>-->
-<!--              <resources>-->
-<!--                <resource>-->
-<!--                  <directory>${project.parent.basedir}/frontend/target/dist</directory>-->
-<!--                  <includes>-->
-<!--                    <include>static/</include>-->
-<!--                    <include>index.html</include>-->
-<!--                    <include>favicon.ico</include>-->
-<!--                  </includes>-->
-<!--                </resource>-->
-<!--              </resources>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-
-<!--      <plugin>-->
-<!--        <groupId>com.spotify</groupId>-->
-<!--        <artifactId>docker-maven-plugin</artifactId>-->
-<!--        <version>${docker.plugin.version}</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <phase>install</phase>-->
-<!--            <goals>-->
-<!--              <goal>build</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--        <configuration>-->
-<!--          <imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
-<!--          <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>-->
-<!--          <resources>-->
-<!--            <resource>-->
-<!--              <targetPath>/</targetPath>-->
-<!--              <directory>${project.build.directory}</directory>-->
-<!--              <include>${project.build.finalName}.jar</include>-->
-<!--            </resource>-->
-<!--          </resources>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
-
-      <!--      <plugin>-->
-      <!--        <groupId>com.github.eirslett</groupId>-->
-      <!--        <artifactId>frontend-maven-plugin</artifactId>-->
-      <!--        <version>${frontend-maven-plugin.version}</version>-->
-      <!--        <executions>-->
-      <!--          <execution>-->
-      <!--            <id>install node and yarn</id>-->
-      <!--            <goals>-->
-      <!--              <goal>install-node-and-yarn</goal>-->
-      <!--            </goals>-->
-      <!--            <phase>generate-resources</phase>-->
-
-      <!--          </execution>-->
-      <!--          <execution>-->
-      <!--            <id>yarn install</id>-->
-      <!--            <goals>-->
-      <!--              <goal>yarn</goal>-->
-      <!--            </goals>-->
-      <!--            <configuration>-->
-      <!--              <arguments>install</arguments>-->
-      <!--            </configuration>-->
-      <!--          </execution>-->
-      <!--        </executions>-->
-
-      <!--        <configuration>-->
-      <!--          <nodeVersion>v6.9.1</nodeVersion>-->
-      <!--          <yarnVersion>v0.16.1</yarnVersion>-->
-      <!--          <nodeDownloadRoot>http://myproxy.example.org/nodejs/</nodeDownloadRoot>-->
-      <!--          <yarnDownloadRoot>http://myproxy.example.org/yarn/</yarnDownloadRoot>-->
-      <!--        </configuration>-->
-      <!--      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>kotlin-bintray</id>
-      <name>Kotlin Bintray</name>
-      <url>http://dl.bintray.com/kotlin/kotlin-dev</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
 </project>
